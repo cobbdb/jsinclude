@@ -5,6 +5,8 @@ A Django tool to keep JavaScript out of your templates.
 
     {% jsinclude widgets/nametag.js John Doe %}
 
+    $ pip install -e git://github.com/cobbdb/jsinclude.git@dcobb#egg=jsinclude
+
 Django Settings
 ---------------
 * ``JSINCLUDE_STATIC_PATH`` set this to whatever makes sense for your django project.
