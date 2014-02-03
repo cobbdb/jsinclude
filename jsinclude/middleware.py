@@ -11,17 +11,17 @@ class JSInclude:
     the combined javascript in memcache for fast serving by a
     view used as a single point of javascript inclusion.
     """
-    def process_request(self, request):
+    def removethis_process_request(self, request):
         request.jsinclude_paths = []
 
-    def process_response(self, request, response):
+    def removethis_process_response(self, request, response):
         script = ''
         included_paths = []
 
         # Cannot assume that jsload_paths has been set.
         # See: <link to docs>
         try:
-            all_paths = request.jsload_paths
+            all_paths = request.jsinclude_paths
         except AttributeError:
             all_paths = []
 
@@ -38,11 +38,7 @@ class JSInclude:
         return response
 
 def context_processor(request):
-    """ Stick paths collection into the template context. """
-    try:
-        context = {
-            'jsinclude_paths': request.jsinclude_paths
-        }
-    except AttributeError:
-        context = {}
-    return context
+    """ Create paths list in the template context. """
+    return {
+        'jsinclude_paths': []
+    }
