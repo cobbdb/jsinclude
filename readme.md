@@ -1,33 +1,23 @@
 JSInclude
 =========
 
-A Django tool to keep JavaScript out of your templates.
-
-    {% jsinclude widgets/nametag.js John Doe %}
+A Django template tag to keep JavaScript out of your templates.
 
     $ pip install -e git://github.com/cobbdb/jsinclude.git@dcobb#egg=jsinclude
 
-Django Settings
----------------
-* ``JSINCLUDE_STATIC_PATH`` set this to whatever makes sense for your django project.
-* ``JSINCLUDE_HTML_TEMPLATE`` defaults to ``<script async src="%s"></script>\n``
+Example of use:
 
-Requirements
-------------
+    <!-- template.html -->
+    {% load jsinclude %}
+    {% jsinclude 'widgets/nametag.js' 'John Doe' %}
 
-* ${JS} sigil in HEAD or somewhere::
+Configuration:
 
-    {% jsrequire /formchecking.js %}
+    # settings.py
+    JSINCLUDE_STATIC_PATH = STATIC_COMMON_URL
 
-* add ``/formchecking.js`` to ``set()`` in context
-
-... (repeat in various templates) ...
-
-* middleware:
-    * generate key from what is in the set()
-    * not cached?
-        * read all the js files, concat, cache
-    * insert ``<script src="/js/cache_key"></script>`` for ``${JS}``
+Dependencies
+* [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------
 
