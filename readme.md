@@ -28,7 +28,7 @@ preserving original naming.
 
 ## $jsi.$static
 The ``$jsi`` object also contains the ``$static`` array containing
-any static arguments pass into the Django template tag - preserving
+any static arguments passed into the Django template tag - preserving
 order.
 
 -----------
