@@ -1,1 +1,1 @@
-OKONOMI_STATIC_URL = '/jsinclude/static/url'
+JSINCLUDE_STATIC_PATH = '/jsinclude/static/url'
