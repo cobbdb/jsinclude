@@ -36,7 +36,8 @@ order.
 ### Configuration:
 
     # settings.py
-    JSINCLUDE_STATIC_PATH = STATIC_COMMON_URL
+    JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
+    JSINCLUDE_WRAP_PATH = 'optional/path/to/custom.template'
 
 ### Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
