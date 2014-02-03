@@ -1,6 +1,6 @@
 from django import template
 from pytest import raises
-from jsinclude.templatetags import okonomi as tags
+from jsinclude.templatetags import jsinclude as tags
 
 class TestJSIncludeNode:
     # TODO: This should not test the exact return statement.
@@ -8,6 +8,11 @@ class TestJSIncludeNode:
     def test_raise_when_nothing_is_passed(self):
         exc = raises(template.TemplateSyntaxError, tags.JSRequireNode)
         assert exc.value.args[0] == 'Expected either a relative path or a fully qualified url. Got nothing'
+        # Something like this vvv
+        assertRaises(
+            template.TemplateSyntaxError,
+            tags.JSIncludeNode
+        )
 
     # TODO: This should not test the exact return statement.
     # Only test that a template error was thrown.

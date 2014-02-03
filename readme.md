@@ -9,7 +9,11 @@ Example of use:
 
     <!-- template.html -->
     {% load jsinclude %}
-    {% jsinclude 'widgets/nametag.js' 'John Doe' %}
+    {% jsinclude widgets/nametag.js 'John Doe' %}
+    {% jsinclude widgets/profile.js Jane Doe female 31 %}
+
+Syntax:
+    {% jsinclude <path_to_script> [{arg}] %}
 
 Configuration:
 

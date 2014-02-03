@@ -1,22 +1,44 @@
-import re
-from django import template
+from django.template import Node, loader, Context
+from django.conf import settings
+from rjsmin import jsmin
+from utils import strip_quotes
 
-class JSIncludeNode(template.Node):
-    def __init__(self, path, arguments):
-        self.path = path
+# Set path to wrap template.
+try:
+    WRAP_PATH = settings.JSINCLUDE_WRAP_PATH
+except AttributeError:
+    WRAP_PATH = '../templates/wrap.html'
+
+class JSIncludeNode(Node):
+    def __init__(self, path, arguments=[], wrapPath=WRAP_PATH):
+        self.path = strip_quotes(path)
         self.arguments = arguments
+        self.wrapPath = wrapPath
 
     def render(self, context):
-        try:
-            context.jsinclude_paths.append(self.path)
-        except AttributeError:
-            context.jsinclude_paths = [self.path]
+        # Load the wrap template.
+        template = loader.get_template(self.wrapPath)
 
-        msg = self.path
+        # Extract values of tag arguments.
+        named = {}
+        unnamed = []
         for key in self.arguments:
             try:
+                # Template variables.
                 value = context[key]
-                msg += ', %s=%s' % (key, value)
+                named[key] = value
             except KeyError:
-                msg += ', %s' % key
-        return '~~%s~~' % msg
+                # Static values.
+                stripped = strip_quotes(key)
+                unnamed.append(stripped)
+
+        # Create the wrap context.
+        wrapContext = Context({
+            'script': self.path,
+            'named': named,
+            'unnamed': unnamed
+        })
+
+        # Return the rendered and minified result.
+        result = template.render(wrapContext)
+        return 'full:\n %s \n minified: %s' % (result, jsmin(result))
