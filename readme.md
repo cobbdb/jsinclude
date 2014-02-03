@@ -16,7 +16,7 @@ Configuration:
     # settings.py
     JSINCLUDE_STATIC_PATH = STATIC_COMMON_URL
 
-Dependencies
+Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------

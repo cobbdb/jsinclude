@@ -1,4 +1,4 @@
-from jsload import middleware
+from jsinclude import middleware
 from helpers import FakeRequest, FakeResponse
 
 class TestContextProcessor:

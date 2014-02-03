@@ -1,8 +1,8 @@
 from django import template
 from pytest import raises
-from jsload.templatetags import okonomi as tags
+from jsinclude.templatetags import okonomi as tags
 
-class TestJSRequireNode:
+class TestJSIncludeNode:
     # TODO: This should not test the exact return statement.
     # Only test that a template error was thrown.
     def test_raise_when_nothing_is_passed(self):
