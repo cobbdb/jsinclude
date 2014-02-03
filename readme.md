@@ -16,18 +16,22 @@ Syntax:
 
     {% jsinclude <path_to_script> [{arg}] %}
 
-### JavaScript API
+-----------
+
+## $jsi
 JSInclude exposes the ``$jsi`` object scoped only to the included
 template.
 
-##### $jsi.&lt;name&gt;
+## $jsi.&lt;name&gt;
 The ``$jsi`` object contains any Django template variables
 preserving original naming.
 
-##### $jsi.$static
+## $jsi.$static
 The ``$jsi`` object also contains the ``$static`` array containing
 any static arguments pass into the Django template tag - preserving
 order.
+
+-----------
 
 ### Configuration:
 
