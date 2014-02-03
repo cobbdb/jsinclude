@@ -2,6 +2,7 @@ from django.template import Node, loader, Context
 from django.conf import settings
 from rjsmin import jsmin
 from utils import strip_quotes
+import os
 
 # Set path to wrap template.
 try:
@@ -33,12 +34,13 @@ class JSIncludeNode(Node):
                 unnamed.append(stripped)
 
         # Create the wrap context.
+        fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, self.path)
         wrapContext = Context({
-            'script': self.path,
+            'script': open(fullPath, 'rb').read(),
             'named': named,
             'unnamed': unnamed
-        })
+        }, autoescape=False)
 
         # Return the rendered and minified result.
         result = template.render(wrapContext)
-        return 'full:\n %s \n minified: %s' % (result, jsmin(result))
+        return jsmin(result)
