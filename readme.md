@@ -13,14 +13,28 @@ Example of use:
     {% jsinclude widgets/profile.js Jane Doe female 31 %}
 
 Syntax:
+
     {% jsinclude <path_to_script> [{arg}] %}
 
-Configuration:
+#### API
+JSInclude exposes the ``$jsi`` object scoped only to the included
+template.
+
+##### $jsi.&lt;name&gt;
+The ``$jsi`` object contains any Django template variables
+preserving original naming.
+
+##### $jsi.$static
+The ``$jsi`` object also contains the ``$static`` array containing
+any static arguments pass into the Django template tag - preserving
+order.
+
+#### Configuration:
 
     # settings.py
     JSINCLUDE_STATIC_PATH = STATIC_COMMON_URL
 
-Dependencies:
+#### Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------
