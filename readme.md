@@ -16,7 +16,7 @@ Syntax:
 
     {% jsinclude <path_to_script> [{arg}] %}
 
-#### API
+### JavaScript API
 JSInclude exposes the ``$jsi`` object scoped only to the included
 template.
 
@@ -29,12 +29,12 @@ The ``$jsi`` object also contains the ``$static`` array containing
 any static arguments pass into the Django template tag - preserving
 order.
 
-#### Configuration:
+### Configuration:
 
     # settings.py
     JSINCLUDE_STATIC_PATH = STATIC_COMMON_URL
 
-#### Dependencies:
+### Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------
