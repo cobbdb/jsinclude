@@ -1,4 +1,4 @@
-def strip_quotes(string):
+def stripQuotes(string):
     """Strip leading and trailing quotes from a string.
     Does nothing unless starting and ending quotes are present and
     the same type (single or double).

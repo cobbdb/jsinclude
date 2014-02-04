@@ -6,7 +6,7 @@
         {% for name, value in named.items %}
             $jsi['{{ name }}'] = '{{ value }}';
         {% endfor %}
-        {% for value in unnamed %}
+        {% for value in static %}
             $jsi.$static.push('{{ value }}');
         {% endfor %}
 

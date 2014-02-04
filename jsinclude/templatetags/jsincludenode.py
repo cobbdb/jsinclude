@@ -1,7 +1,7 @@
 from django.template import Node, loader, Context
 from django.conf import settings
 from rjsmin import jsmin
-from utils import strip_quotes
+from utils import stripQuotes
 import os
 
 # Set path to wrap template.
@@ -12,17 +12,13 @@ except AttributeError:
 
 class JSIncludeNode(Node):
     def __init__(self, path, arguments=[], wrapPath=WRAP_PATH):
-        self.path = strip_quotes(path)
+        self.path = stripQuotes(path)
         self.arguments = arguments
         self.wrapPath = wrapPath
 
-    def render(self, context):
-        # Load the wrap template.
-        template = loader.get_template(self.wrapPath)
-
-        # Extract values of tag arguments.
+    def parseTagArguments(self, context):
         named = {}
-        unnamed = []
+        static = []
         for key in self.arguments:
             try:
                 # Template variables.
@@ -30,15 +26,26 @@ class JSIncludeNode(Node):
                 named[key] = value
             except KeyError:
                 # Static values.
-                stripped = strip_quotes(key)
-                unnamed.append(stripped)
+                stripped = stripQuotes(key)
+                static.append(stripped)
+        return {
+            'named': named,
+            'static': static
+        }
+
+    def render(self, context):
+        # Load the wrap template.
+        template = loader.get_template(self.wrapPath)
+
+        # Extract values of tag arguments.
+        args = self.parseTagArguments(context)
 
         # Create the wrap context.
         fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, self.path)
         wrapContext = Context({
             'script': open(fullPath, 'rb').read(),
-            'named': named,
-            'unnamed': unnamed
+            'named': args['named']
+            'static': args['static']
         }, autoescape=False)
 
         # Return the rendered and minified result.

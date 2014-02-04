@@ -14,7 +14,8 @@ Example of use:
 ```
 ```JavaScript
 // nametag.js
-console.log('My name is ' + $jsi.$static[0]);
+var name = $jsi.$static[0]
+console.log('Hi, my name is ' + name);
 ```
 
 Syntax:
