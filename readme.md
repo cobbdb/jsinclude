@@ -6,11 +6,16 @@ A Django 1.3+ template tag to keep JavaScript out of your templates.
     $ pip install -e git://github.com/cobbdb/jsinclude.git@dcobb#egg=jsinclude
 
 Example of use:
-
-    <!-- template.html -->
-    {% load jsinclude %}
-    {% jsinclude widgets/nametag.js 'John Doe' %}
-    {% jsinclude widgets/profile.js Jane Doe female 31 %}
+> ```
+<!-- template.html -->
+{% load jsinclude %}
+{% jsinclude widgets/profile.js Jane Doe female 31 %}
+{% jsinclude widgets/nametag.js 'John Doe' %}
+```
+```JavaScript
+// nametag.js
+console.log('My name is ' + $jsi.$static[0]);
+```
 
 Syntax:
 
