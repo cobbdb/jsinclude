@@ -1,26 +1,39 @@
-from django import template
+from mock import Mock, patch
 from pytest import raises
-from jsinclude.templatetags import jsinclude as tags
+from django.template import TemplateSyntaxError
+from jsinclude.templatetags import jsinclude
 
-class TestJSIncludeNode:
-    # TODO: This should not test the exact return statement.
-    # Only test that a template error was thrown.
-    def test_raise_when_nothing_is_passed(self):
-        exc = raises(template.TemplateSyntaxError, tags.JSRequireNode)
-        assert exc.value.args[0] == 'Expected either a relative path or a fully qualified url. Got nothing'
-        # Something like this vvv
-        assertRaises(
-            template.TemplateSyntaxError,
-            tags.JSIncludeNode
-        )
+class TestTemplateTag:
+    def test_no_path():
+        parser = Mock()
+        token = Mock()
+        token.split_contents = Mock(return_value=[])
+        with raises(TemplateSyntaxError):
+            jsinclude(parser, token)
 
-    # TODO: This should not test the exact return statement.
-    # Only test that a template error was thrown.
-    def test_raise_when_both_are_passed(self):
-        exc = raises(template.TemplateSyntaxError, tags.JSRequireNode, path='/', url='/')
-        assert exc.value.args[0] == 'Expected either a relative path or a fully qualified url. Got both'
+    def test_no_args():
+        parser = Mock()
+        token = Mock()
+        token.split_contents = Mock(return_value=[
+            'jsinclude',
+            'test/path'
+        ])
+        with patch('jsinclude.JSIncludeNode') as MockNode:
+            jsinclude(parser, token)
+            MockNode.assert_called_with('test/path', [])
 
-    def test_render_correctly(self):
-        js_require = tags.JSRequireNode(path='/')
-        result = js_require.render([])
-        assert result == '<!-- requires / -->'
+    def test_with_args():
+        parser = Mock()
+        token = Mock()
+        token.split_contents = Mock(return_value=[
+            'jsinclude',
+            'test/path',
+            'foo',
+            'bar'
+        ])
+        with patch('jsinclude.JSIncludeNode') as MockNode:
+            jsinclude(parser, token)
+            MockNode.assert_called_with('test/path', [
+                'foo',
+                'bar'
+            ])
