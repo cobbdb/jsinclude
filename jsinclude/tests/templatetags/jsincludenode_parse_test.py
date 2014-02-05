@@ -1,4 +1,4 @@
-from jsinclude.templatetags import JSIncludeNode, utils
+from jsinclude.templatetags.jsincludenode import JSIncludeNode
 from mock import Mock
 
 class TestJSIncludeNodeParseMethod:

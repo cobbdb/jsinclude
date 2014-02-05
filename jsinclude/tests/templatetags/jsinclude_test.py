@@ -1,7 +1,7 @@
 from mock import Mock, patch
 from pytest import raises
 from django.template import TemplateSyntaxError
-from jsinclude.templatetags import jsinclude
+from jsinclude.templatetags.jsinclude import jsinclude
 
 class TestTemplateTag:
     def setup_method(self, method):

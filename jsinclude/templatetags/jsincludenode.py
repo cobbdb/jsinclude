@@ -44,7 +44,7 @@ class JSIncludeNode(Node):
         fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, self.path)
         wrapContext = Context({
             'script': open(fullPath, 'rb').read(),
-            'named': args['named']
+            'named': args['named'],
             'static': args['static']
         }, autoescape=False)
 

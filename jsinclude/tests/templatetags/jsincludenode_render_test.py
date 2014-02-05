@@ -1,6 +1,6 @@
 from django.template import Node, loader, Context
 from pytest import raises
-from jsinclude.templatetags import JSIncludeNode
+from jsinclude.templatetags.jsincludenode import JSIncludeNode
 from mock import Mock, patch
 from django.conf import settings
 

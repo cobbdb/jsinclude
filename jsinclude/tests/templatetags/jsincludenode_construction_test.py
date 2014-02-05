@@ -1,6 +1,6 @@
 from django import template
 from pytest import raises
-from jsinclude.templatetags import JSIncludeNode, utils
+from jsinclude.templatetags.jsincludenode import JSIncludeNode
 from django.conf import settings
 from mock import Mock, patch
 
