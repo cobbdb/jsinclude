@@ -4,17 +4,14 @@ from rjsmin import jsmin
 from utils import stripQuotes
 import os
 
-# Set path to wrap template.
-try:
-    WRAP_PATH = settings.JSINCLUDE_WRAP_PATH
-except AttributeError:
-    WRAP_PATH = '../templates/wrap.html'
-
 class JSIncludeNode(Node):
-    def __init__(self, path, arguments=[], wrapPath=WRAP_PATH):
+    def __init__(self, path, arguments=[]):
         self.path = stripQuotes(path)
         self.arguments = arguments
-        self.wrapPath = wrapPath
+        try:
+            self.wrapPath = settings.JSINCLUDE_WRAP_PATH
+        except AttributeError:
+            self.wrapPath = 'wrap.html'
 
     def parseTagArguments(self, context):
         named = {}

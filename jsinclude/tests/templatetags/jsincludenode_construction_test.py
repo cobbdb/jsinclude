@@ -1,8 +1,6 @@
-from django import template
 from pytest import raises
 from jsinclude.templatetags.jsincludenode import JSIncludeNode
 from django.conf import settings
-from mock import Mock, patch
 
 class TestJSIncludeNodeConstruction:
     def test_no_path(self):
@@ -16,8 +14,8 @@ class TestJSIncludeNodeConstruction:
         assert node.wrapPath == '../templates/wrap.html'
 
     def test_no_args_with_wrap(self, monkeypatch):
-        monkeypatch(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)
-        node = JSIncludeNode('test/path', wrapPath='wrap/test/path')
+        monkeypatch.setattr(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)
+        node = JSIncludeNode('test/path')
         assert node.path == 'test/path'
         assert node.arguments == []
         assert node.wrapPath == 'test/wrap/path'
@@ -29,7 +27,7 @@ class TestJSIncludeNodeConstruction:
         assert node.wrapPath == '../templates/wrap.html'
 
     def test_with_args_with_wrap(self, monkeypatch):
-        monkeypatch(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)
+        monkeypatch.setattr(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)
         node = JSIncludeNode('test/path', arguments=['foo', 'bar'])
         assert node.path == 'test/path'
         assert node.arguments == ['foo', 'bar']
