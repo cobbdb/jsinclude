@@ -1,13 +1,8 @@
-from django import template
-from pytest import raises
 from jsinclude.templatetags import JSIncludeNode, utils
-from django.conf import settings
-from mock import Mock, patch
-from pytest import raises
+from mock import Mock
 
 class TestJSIncludeNodeParseMethod:
     def test_no_args(self, monkeypatch):
-        monkeypatch(utils, 'stripQuotes', lambda: 'stripVal')
         node = JSIncludeNode('test/path')
         context = Mock()
         res = node.parseTagArguments(context)
@@ -15,7 +10,6 @@ class TestJSIncludeNodeParseMethod:
         assert res['static'] == []
 
     def test_with_name_no_static(self, monkeypatch):
-        monkeypatch(utils, 'stripQuotes', lambda: 'stripVal')
         context = Mock()
         context.testName = 'testData'
         context.otherName = 'otherData'
@@ -31,7 +25,6 @@ class TestJSIncludeNodeParseMethod:
         assert res['static'] == []
 
     def test_no_name_with_static(self, monkeypatch):
-        monkeypatch(utils, 'stripQuotes', lambda: 'stripVal')
         context = Mock()
         node = JSIncludeNode('test/path', [
             'testData',
@@ -45,7 +38,6 @@ class TestJSIncludeNodeParseMethod:
         ]
 
     def test_with_name_with_static(self, monkeypatch):
-        monkeypatch(utils, 'stripQuotes', lambda: 'stripVal')
         context = Mock()
         context.testName = 'testData'
         context.otherName = 'otherData'
