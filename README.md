@@ -3,7 +3,7 @@ JSInclude [![Build Status](https://travis-ci.org/cobbdb/jsinclude.png?branch=mas
 
 ### A Django 1.3+ template tag to keep JavaScript out of your templates.
 
-    $ pip install -e git://github.com/cobbdb/jsinclude.git@dcobb#egg=jsinclude
+    $ pip install jsinclude
 
 Example of use:
 > ```
