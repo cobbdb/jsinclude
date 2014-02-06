@@ -1,3 +1,0 @@
-include setup.py
-include readme.md
-recursive-include jsinclude *
