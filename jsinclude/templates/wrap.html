@@ -1,13 +1,8 @@
 <script>
     (function () {
-        var $jsi = {
-            $static: []
-        };
-        {% for name, value in named.items %}
+        var $jsi = {};
+        {% for name, value in tagArguments.items %}
             $jsi['{{ name }}'] = '{{ value }}';
-        {% endfor %}
-        {% for value in static %}
-            $jsi.$static.push('{{ value }}');
         {% endfor %}
 
         {{ script }}

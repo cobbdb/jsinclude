@@ -6,8 +6,7 @@ class TestJSIncludeNodeParseMethod:
         node = JSIncludeNode('test/path')
         context = Mock()
         res = node.parseTagArguments(context)
-        assert res['named'] == {}
-        assert res['static'] == []
+        assert res['tagArguments'] == {}
 
     def test_with_name_no_static(self):
         node = JSIncludeNode('test/path', [
@@ -18,40 +17,43 @@ class TestJSIncludeNodeParseMethod:
             'testName': 'testData',
             'otherName': 'otherData'
         })
-        assert res['named'] == {
+        assert res['tagArguments'] == {
             'testName': 'testData',
             'otherName': 'otherData'
         }
-        assert res['static'] == []
 
     def test_no_name_with_static(self):
         node = JSIncludeNode('test/path', [
-            'testData',
-            'otherData'
+            'testName=testData',
+            'someName=otherData'
         ])
         res = node.parseTagArguments({})
-        assert res['named'] == {}
-        assert res['static'] == [
-            'testData',
-            'otherData'
-        ]
+        assert res['tagArguments'] == {
+            'testName': 'testData',
+            'someName': 'otherData'
+        }
 
     def test_with_name_with_static(self):
         node = JSIncludeNode('test/path', [
             'testName',
             'otherName',
-            'moreData',
-            'lastData'
+            'someName=moreData',
+            'otherName=lastData'
         ])
         res = node.parseTagArguments({
             'testName': 'testData',
             'otherName': 'otherData'
         })
-        assert res['named'] == {
+        assert res['tagArguments'] == {
             'testName': 'testData',
-            'otherName': 'otherData'
+            'otherName': 'lastData',
+            'someName': 'moreData'
         }
-        assert res['static'] == [
-            'moreData',
-            'lastData'
-        ]
+
+    def test_no_equal_sign(self):
+        node = JSIncludeNode('test/path', [
+            'testName=testData',
+            'someNaotherData'
+        ])
+        with rases(TempalteSyntaxError):
+            res = node.parseTagArguments({})

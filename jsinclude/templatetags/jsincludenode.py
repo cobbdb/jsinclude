@@ -1,4 +1,4 @@
-from django.template import Node, loader, Context
+from django.template import Node, loader, Context, TemplateSyntaxError
 from django.conf import settings
 from rjsmin import jsmin
 from .utils import stripQuotes, escapeQuotes
@@ -14,38 +14,35 @@ class JSIncludeNode(Node):
             self.wrapPath = 'wrap.html'
 
     def parseTagArguments(self, context):
-        named = {}
-        static = []
+        data = {}
         for key in self.arguments:
             try:
                 # Template variables.
                 value = context[key]
                 value = escapeQuotes(value)
                 key = escapeQuotes(key)
-                named[key] = value
+                data[key] = value
             except KeyError:
-                # Static values.
-                key = stripQuotes(key)
-                key = escapeQuotes(key)
-                static.append(key)
-        return {
-            'named': named,
-            'static': static
-        }
+                # Static values are name=value format.
+                try:
+                    key = stripQuotes(key)
+                    tokens = key.split('=', 1)
+                    name = escapeQuotes(tokens[0])
+                    value = escapeQuotes(tokens[1])
+                    data[name] = value
+                except IndexError:
+                    raise TemplateSyntaxError('JSInclude: Static data must be name=value.')
+        return data
 
     def render(self, context):
         # Load the wrap template.
         template = loader.get_template(self.wrapPath)
 
-        # Extract values of tag arguments.
-        args = self.parseTagArguments(context)
-
         # Create the wrap context.
         fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, self.path)
         wrapContext = Context({
             'script': open(fullPath, 'rb').read(),
-            'named': args['named'],
-            'static': args['static']
+            'tagArguments': self.parseTagArguments(context)
         }, autoescape=False)
 
         # Return the rendered and minified result.
