@@ -1,4 +1,4 @@
-from jsincludenode import JSIncludeNode
+from .jsincludenode import JSIncludeNode
 from django.template import TemplateSyntaxError, Library
 register = Library()
 
