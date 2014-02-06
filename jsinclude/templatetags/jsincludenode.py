@@ -1,7 +1,7 @@
 from django.template import Node, loader, Context
 from django.conf import settings
 from rjsmin import jsmin
-from utils import stripQuotes, escapeQuotes
+from .utils import stripQuotes, escapeQuotes
 import os
 
 class JSIncludeNode(Node):
