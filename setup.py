@@ -7,7 +7,7 @@ setup(
     author = "Cox Media Group",
     author_email = "opensource@coxinc.com",
     description = "A Django 1.3+ template tag to keep JavaScript out of your templates.",
-    license = "MIT",
+    license = 'LICENSE.txt',
     url = "https://github.com/cobbdb/jsload",
     zip_safe = False,
     keywords = "javascript, loader, templatetag, django",
