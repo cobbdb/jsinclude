@@ -1,1 +1,4 @@
-OKONOMI_STATIC_URL = '/jsload/static/url'
+SECRET_KEY = 'abc123'
+TEMPLATE_DIRS = (
+    'jsinclude/templates'
+)

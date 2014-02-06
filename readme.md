@@ -1,31 +1,52 @@
-JSInclude
+JSInclude [![Build Status](https://travis-ci.org/cobbdb/jsinclude.png?branch=master)](https://travis-ci.org/cobbdb/jsinclude)
 =========
 
-A Django tool to keep JavaScript out of your templates.
+### A Django 1.3+ template tag to keep JavaScript out of your templates.
 
-    {% jsinclude widgets/nametag.js John Doe %}
+    $ pip install -e git://github.com/cobbdb/jsinclude.git@dcobb#egg=jsinclude
 
-Django Settings
----------------
-* ``JSINCLUDE_STATIC_PATH`` set this to whatever makes sense for your django project.
-* ``JSINCLUDE_HTML_TEMPLATE`` defaults to ``<script async src="%s"></script>\n``
+Example of use:
+> ```
+<!-- template.html -->
+{% load jsinclude %}
+{% jsinclude widgets/profile.js Jane Doe female 31 %}
+{% jsinclude widgets/nametag.js 'John Doe' %}
+```
+```JavaScript
+// nametag.js
+var name = $jsi.$static[0]
+console.log('Hi, my name is ' + name);
+```
 
-Requirements
-------------
+Syntax:
 
-* ${JS} sigil in HEAD or somewhere::
+    {% jsinclude <path_to_script> [{arg}] %}
 
-    {% jsrequire /formchecking.js %}
+-----------
 
-* add ``/formchecking.js`` to ``set()`` in context
+## $jsi
+JSInclude exposes the ``$jsi`` object scoped only to the included
+template.
 
-... (repeat in various templates) ...
+## $jsi.&lt;name&gt;
+The ``$jsi`` object contains any Django template variables
+preserving original naming.
 
-* middleware:
-    * generate key from what is in the set()
-    * not cached?
-        * read all the js files, concat, cache
-    * insert ``<script src="/js/cache_key"></script>`` for ``${JS}``
+## $jsi.$static
+The ``$jsi`` object also contains the ``$static`` array containing
+any static arguments passed into the Django template tag - preserving
+order.
+
+-----------
+
+### Configuration:
+
+    # settings.py
+    JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
+    JSINCLUDE_WRAP_PATH = 'optional/path/to/custom.template'
+
+### Dependencies:
+* [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------
 

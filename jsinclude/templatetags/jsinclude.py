@@ -1,19 +1,18 @@
-from django import template
-register = template.Library()
+from jsincludenode import JSIncludeNode
+from django.template import TemplateSyntaxError, Library
+register = Library()
 
-@register.simple_tag(takes_context=True)
-def jsinclude(context, path, argument):
-    """
-        Syntax::
-            {% jsload <path_to_script> [{arg}] %}
+@register.tag
+def jsinclude(parser, token):
+    # Separate all tag arguments.
+    contents = token.split_contents()
 
-        Example::
-            {% jsload /widgets/receipt.js 183.92 %}
-    """
+    # Grab path to script.
     try:
-        #arguments = args
-        thing = 123
+        path = contents[1]
     except IndexError:
-        raise template.TemplateSyntaxError('Missing path to script.')
+        raise TemplateSyntaxError('Missing path to script.')
 
-    return 'path=%s, arg=%s' % (path, argument)
+    # Grab any remaining arguments and return the Node.
+    args = contents[2:]
+    return JSIncludeNode(path, args)

@@ -1,6 +1,15 @@
-<pre>
+<script>
     (function () {
-        {{ arguments }}
+        var $jsi = {
+            $static: []
+        };
+        {% for name, value in named.items %}
+            $jsi['{{ name }}'] = '{{ value }}';
+        {% endfor %}
+        {% for value in static %}
+            $jsi.$static.push('{{ value }}');
+        {% endfor %}
+
         {{ script }}
     }());
-</pre>
+</script>

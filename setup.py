@@ -11,7 +11,6 @@ setup(
     url = "https://github.com/cobbdb/jsload.git",
     zip_safe = False,
     keywords = "javascript, loader, templatetag, django",
-    long_description = open('readme.md').read(),
     install_requires = [
         'rjsmin'
     ],
