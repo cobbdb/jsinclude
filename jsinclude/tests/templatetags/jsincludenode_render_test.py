@@ -11,10 +11,10 @@ class TestJSIncludeNodeRender:
             OpenMock.read = Mock(return_value='some test javascript')
             node = JSIncludeNode('test/path', [
                 'testField',
-                'Static Data'
+                'Static Data',
+                '"testVal"'
             ])
             result = node.render({
-                'testField': 123,
-                'otherField': 'abc'
+                'testVal': 12345
             })
             assert result != ''

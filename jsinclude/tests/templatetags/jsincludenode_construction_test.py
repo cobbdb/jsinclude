@@ -11,7 +11,7 @@ class TestJSIncludeNodeConstruction:
         node = JSIncludeNode('test/path')
         assert node.path == 'test/path'
         assert node.arguments == []
-        assert node.wrapPath == '../templates/wrap.html'
+        assert node.wrapPath == 'wrap.html'
 
     def test_no_args_with_wrap(self, monkeypatch):
         monkeypatch.setattr(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)
@@ -24,7 +24,7 @@ class TestJSIncludeNodeConstruction:
         node = JSIncludeNode('test/path', arguments=['foo', 'bar'])
         assert node.path == 'test/path'
         assert node.arguments == ['foo', 'bar']
-        assert node.wrapPath == '../templates/wrap.html'
+        assert node.wrapPath == 'wrap.html'
 
     def test_with_args_with_wrap(self, monkeypatch):
         monkeypatch.setattr(settings, 'JSINCLUDE_WRAP_PATH', 'test/wrap/path', False)

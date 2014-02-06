@@ -1,7 +1,7 @@
 from django.template import Node, loader, Context
 from django.conf import settings
 from rjsmin import jsmin
-from utils import stripQuotes
+from utils import stripQuotes, escapeQuotes
 import os
 
 class JSIncludeNode(Node):
@@ -20,11 +20,14 @@ class JSIncludeNode(Node):
             try:
                 # Template variables.
                 value = context[key]
+                value = escapeQuotes(value)
+                key = escapeQuotes(key)
                 named[key] = value
             except KeyError:
                 # Static values.
-                stripped = stripQuotes(key)
-                static.append(stripped)
+                key = stripQuotes(key)
+                key = escapeQuotes(key)
+                static.append(key)
         return {
             'named': named,
             'static': static

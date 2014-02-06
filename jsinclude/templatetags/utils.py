@@ -8,3 +8,8 @@ def stripQuotes(string):
     if single or double:
         return string[1:-1]
     return string
+
+def escapeQuotes(string):
+    string = string.replace('"', '\\"')
+    string = string.replace("'", "\\'")
+    return string

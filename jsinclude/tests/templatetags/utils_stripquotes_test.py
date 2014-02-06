@@ -1,4 +1,4 @@
-from jsinclude.templatetags.utils import *
+from jsinclude.templatetags.utils import stripQuotes
 
 class TestStripQuotes:
     def test_no_quotes(self):
