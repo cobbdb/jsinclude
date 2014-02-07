@@ -1,21 +1,22 @@
 JSInclude [![Build Status](https://travis-ci.org/cobbdb/jsinclude.png?branch=master)](https://travis-ci.org/cobbdb/jsinclude)
 =========
 
-### A Django 1.3+ template tag to keep JavaScript out of your templates.
+### A Django 1.3+ tag to keep JavaScript out of your templates.
 
     $ pip install jsinclude
 
 Example of use:
-> ```
+> ```HTML
 <!-- template.html -->
 {% load jsinclude %}
-{% jsinclude widgets/profile.js Jane Doe female 31 %}
-{% jsinclude widgets/nametag.js 'John Doe' %}
+{% with 31 as age %}
+    {% jsinclude widgets/profile.js "name=Jane Doe" age gender="female" %}
+{% endwith %}
 ```
 ```JavaScript
-// nametag.js
-var name = $jsi.$static[0]
-console.log('Hi, my name is ' + name);
+// profile.js
+console.log('My name is ' + $jsi.name);
+console.log("I'm a " + $jsi.age + ' year old ' + $jsi.gender);
 ```
 
 Syntax:
@@ -29,13 +30,9 @@ JSInclude exposes the ``$jsi`` object scoped only to the included
 template.
 
 ## $jsi.&lt;name&gt;
-The ``$jsi`` object contains any Django template variables
-preserving original naming.
-
-## $jsi.$static
-The ``$jsi`` object also contains the ``$static`` array containing
-any static arguments passed into the Django template tag - preserving
-order.
+The ``$jsi`` object contains any Django template variables preserving
+original naming. Static data can be loaded into the ``$jsi`` object by
+the ``name=value`` or ``"name=long value" tag argument conventions.
 
 -----------
 
