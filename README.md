@@ -10,7 +10,7 @@ Example of use:
 <!-- template.html -->
 {% load jsinclude %}
 {% with 31 as age %}
-    {% jsinclude widgets/profile.js "name=Jane Doe" age gender="female" %}
+    {% jsinclude widgets/profile.js "name=Jane Doe" age gender=female %}
 {% endwith %}
 ```
 ```JavaScript
