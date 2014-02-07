@@ -16,3 +16,12 @@ class TestVariableArgument:
         }
         arg = VariableArgument(key, context)
         assert arg['someName'] == 'someData'
+
+    def test_number_arg(self):
+        key = 'someName'
+        context = {
+            'someName': 123,
+            'otherName': 'otherData'
+        }
+        arg = VariableArgument(key, context)
+        assert arg['someName'] == 123
