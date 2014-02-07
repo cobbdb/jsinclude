@@ -32,7 +32,7 @@ template.
 ## $jsi.&lt;name&gt;
 The ``$jsi`` object contains any Django template variables preserving
 original naming. Static data can be loaded into the ``$jsi`` object by
-the ``name=value`` or ``"name=long value" tag argument conventions.
+the ``name=value`` or ``"name=long value"`` tag argument conventions.
 
 -----------
 
