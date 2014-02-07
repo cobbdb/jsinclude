@@ -10,7 +10,7 @@ Example of use:
 <!-- template.html -->
 {% load jsinclude %}
 {% with 31 as age %}
-    {% jsinclude widgets/profile.js "name=Jane Doe" age gender="female" %}
+    {% jsinclude widgets/profile.js "name=Jane Doe" age gender=female %}
 {% endwith %}
 ```
 ```JavaScript
@@ -32,7 +32,7 @@ template.
 ## $jsi.&lt;name&gt;
 The ``$jsi`` object contains any Django template variables preserving
 original naming. Static data can be loaded into the ``$jsi`` object by
-the ``name=value`` or ``"name=long value" tag argument conventions.
+the ``name=value`` or ``"name=long value"`` tag argument conventions.
 
 -----------
 
