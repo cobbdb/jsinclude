@@ -1,4 +1,4 @@
-from .jsincludenode import JSIncludeNode
+from .pkg.TagNode import TagNode
 from django.template import TemplateSyntaxError, Library
 register = Library()
 
@@ -15,4 +15,4 @@ def jsinclude(parser, token):
 
     # Grab any remaining arguments and return the Node.
     args = contents[2:]
-    return JSIncludeNode(path, args)
+    return TagNode(path, args)

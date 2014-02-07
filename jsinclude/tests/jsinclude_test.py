@@ -21,7 +21,7 @@ class TestTemplateTag:
             'jsinclude',
             'test/path'
         ]
-        with patch('jsinclude.templatetags.jsinclude.JSIncludeNode') as MockNode:
+        with patch('jsinclude.templatetags.jsinclude.TagNode') as MockNode:
             jsinclude(self.parser, self.token)
             MockNode.assert_called_with('test/path', [])
 
@@ -32,7 +32,7 @@ class TestTemplateTag:
             'foo',
             'bar'
         ]
-        with patch('jsinclude.templatetags.jsinclude.JSIncludeNode') as MockNode:
+        with patch('jsinclude.templatetags.jsinclude.TagNode') as MockNode:
             jsinclude(self.parser, self.token)
             MockNode.assert_called_with('test/path', [
                 'foo',

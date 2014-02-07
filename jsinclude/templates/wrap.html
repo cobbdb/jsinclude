@@ -1,9 +1,10 @@
 <script>
     (function () {
-        var $jsi = {};
-        {% for name, value in tagArguments.items %}
-            $jsi['{{ name }}'] = '{{ value }}';
-        {% endfor %}
+        var $jsi = {
+            {% for name, value in tagArguments.items %}
+                '{{ name }}': '{{ value }}',
+            {% endfor %}
+        };
 
         {{ script }}
     }());

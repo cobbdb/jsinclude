@@ -10,6 +10,7 @@ def stripQuotes(string):
     return string
 
 def escapeQuotes(string):
-    string = string.replace('"', '\\"')
-    string = string.replace("'", "\\'")
-    return string
+    """Escape single quotes since values will be wrapped
+    in single quotes in the wrap template.
+    """
+    return string.replace("'", "\\'")
