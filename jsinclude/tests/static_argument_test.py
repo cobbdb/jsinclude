@@ -11,9 +11,9 @@ class TestStaticArgument:
     def test_good_key(self):
         key = 'someN"ame=someD\'ata'
         arg = StaticArgument(key)
-        assert arg['someN"ame'] == '"someD\\\'ata"'
+        assert arg['someN"ame'] == "someD\\'ata"
 
     def test_long_value(self):
         key = '"someN\'ame=so"meLon\g Data"'
         arg = StaticArgument(key)
-        assert arg["someN\\'ame"] == '"so"meLon\g Data"'
+        assert arg["someN\\'ame"] == 'so"meLon\g Data'

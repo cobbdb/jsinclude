@@ -6,7 +6,6 @@ def VariableArgument(key, context):
     try:
         # Ensure only a single pair of wrapping quotes.
         value = escapeQuotes(value)
-        value = '"%s"' % value
     except AttributeError:
         # Value is not a string, so do nothing.
         pass

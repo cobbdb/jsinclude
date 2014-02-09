@@ -2,7 +2,7 @@
     (function () {
         var $jsi = {
             {% for name, value in tagArguments.items %}
-                '{{ name }}': {{ value }},
+                '{{ name }}': '{{ value }}',
             {% endfor %}
         };
 
