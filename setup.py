@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "jsinclude",
-    version = "1.1.2",
+    version = "1.1.3",
     packages = find_packages(),
     author = "Cox Media Group",
     author_email = "opensource@coxinc.com",
