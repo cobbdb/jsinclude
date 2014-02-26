@@ -27,4 +27,6 @@ class TagNode(Node):
 
         # Return the rendered and minified result.
         result = template.render(wrapContext)
-        return jsmin(result)
+        if settings.TEMPLATE_DEBUG:
+            return jsmin(result)
+        return result
