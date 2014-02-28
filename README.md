@@ -41,8 +41,8 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
     # settings.py
     JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
     JSINCLUDE_WRAP_PATH = 'optional/path/to/custom.template'
-    # Built-in TEMPLATE_DEBUG will enable/disable minification.
-    TEMPLATE_DEBUG = True
+    # Built-in DEBUG will enable/disable minification.
+    DEBUG = True
 
 ### Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
