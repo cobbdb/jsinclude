@@ -25,8 +25,8 @@ class TagNode(Node):
             'tagArguments': ArgumentCollection(self.arguments, context)
         }, autoescape=False)
 
-        # Return the rendered and minified result.
         result = template.render(wrapContext)
+        # Do not minify if in debug mode.
         if settings.DEBUG:
-            return jsmin(result)
-        return result
+            return result
+        return jsmin(result)
