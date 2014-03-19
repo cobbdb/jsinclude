@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name = "jsinclude",
-    version = "1.1.7",
+    version = "1.1.8",
     packages = find_packages(),
-    author = "Cox Media Group",
-    author_email = "opensource@coxinc.com",
+    author = "Dan Cobb, Derek Anderson",
+    author_email = "cobbdb@gmail.com, dmanderson@live.com",
     description = "A Django 1.3+ tag to keep JavaScript out of your templates.",
-    license = 'LICENSE.txt',
+    license = 'MIT',
     url = "https://github.com/cobbdb/jsinclude",
     zip_safe = False,
     keywords = "javascript, loader, templatetag, django",
