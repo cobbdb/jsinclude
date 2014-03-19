@@ -50,6 +50,5 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
 ------------------------
 
 * License: MIT
-* by Cox Media Group
-* Dan Cobb <dan.cobb@coxinc.com>
-* Derek Anderson <derek.anderson@coxinc.com>
+* Dan Cobb <cobbdb@gmail.com>
+* Derek Anderson <dmanderson@live.com>
