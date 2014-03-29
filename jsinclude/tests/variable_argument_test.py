@@ -8,20 +8,33 @@ class TestVariableArgument:
         with raises(KeyError):
             arg = VariableArgument(key, context)
 
-    def test_good_key(self):
-        key = 'someName'
+    def test_string_arg(self):
+        key = 'string'
         context = {
-            'someName': 'someData',
+            'string': 'someData',
             'otherName': 'otherData'
         }
         arg = VariableArgument(key, context)
-        assert arg['someName'] == 'someData'
+        assert arg[key] == "'someData'"
 
     def test_number_arg(self):
-        key = 'someName'
+        key = 'num'
         context = {
-            'someName': 123,
+            'num': 123,
             'otherName': 'otherData'
         }
         arg = VariableArgument(key, context)
-        assert arg['someName'] == 123
+        assert arg[key] == 123
+
+    def test_boolean_arg(self):
+        key = 'bool'
+        context = {
+            'bool': 'true',
+            'otherName': 'otherData'
+        }
+        arg = VariableArgument(key, context)
+        assert arg[key] == 'true'
+
+        context['bool'] = 'false'
+        arg = VariableArgument(key, context)
+        assert arg[key] == 'false'
