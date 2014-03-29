@@ -43,7 +43,7 @@ key=value pair.
 
 #### "name=long value"
 Static values that contain spaces must be wrapped in quotes. Django 1.3
-does not support arbitrary arguments to template tags, so the entire
+does not support arbitrary arguments in template tags, so the entire
 key=value pair must be wrapped in quotes.
 
     {% jsinclude shape.js "label=my red square" %}
@@ -89,7 +89,7 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
 
 ## Change Log
 
-##### 1.2.0
+#### 1.2.0
 
-* Tag errors fail silently now. Instead error message is returned describing what went wrong - formatted as html comment. Find errors by searching page source for 'JSInclude Error'.
-* JavaScript Number and Boolean types are now supported. Tag arguments like ```branch=true``` will now appear in ```$jsi.branch``` as a boolean instead of a string. Note that Python's ```True``` and ```False``` will appear in ```$jsi``` object as strings because JavaScript uses lower-case Boolean values.
+* Tag errors fail silently now. Error messages are returned describing what went wrong - formatted as an html comment. Find errors by searching the page's source for 'JSInclude Error'.
+* JavaScript Number and Boolean types are now supported. Tag arguments like ```branch=true``` will now appear in ```$jsi.branch``` as a Boolean instead of a String. Note that Python's ```True``` and ```False``` will appear in the ```$jsi``` object as strings because JavaScript uses lower-case Boolean values.
