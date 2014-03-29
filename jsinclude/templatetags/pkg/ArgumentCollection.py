@@ -2,13 +2,15 @@ from .VariableArgument import VariableArgument
 from .StaticArgument import StaticArgument
 
 def ArgumentCollection(arguments, context):
-    data = {}
+    """Dictionary of tag arguments by name: value.
+    """
+    collection = {}
     for key in arguments:
         try:
-            # Template variables.
+            # Look into template context for existing variable.
             arg = VariableArgument(key, context)
         except KeyError:
             # Static values are name=value format.
             arg = StaticArgument(key)
-        data.update(arg)
-    return data
+        collection.update(arg)
+    return collection

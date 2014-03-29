@@ -1,13 +1,26 @@
 from .utils import escapeQuotes, stripQuotes
-from django.template import TemplateSyntaxError
+from .JSIError import JSIError
+from .ArgumentValue import ArgumentValue
 
-def StaticArgument(key):
+def StaticArgument(pair):
+    """Tag argument as a dictionary by name: value. Static tag
+    arguments must be of the form name=value or "name=long value".
+    """
     try:
-        key = stripQuotes(key)
-        key = escapeQuotes(key)
-        tokens = key.split('=', 1)
-        return {
-            tokens[0]: tokens[1]
-        }
+        pair = stripQuotes(pair)
+        pair = escapeQuotes(pair)
+        tokens = pair.split('=', 1)
+        key = tokens[0]
+        value = tokens[1]
     except IndexError:
-        raise TemplateSyntaxError('JSInclude: Static data must be name=value or "name=long value".')
+        raise JSIError('Static argument must be name=value or "name=long value".', {
+            'pair': pair
+        })
+    except:
+        raise JSIError('Unknown error occured while parsing static argument.', {
+            'pair': pair
+        })
+
+    return {
+        key: ArgumentValue(value)
+    }

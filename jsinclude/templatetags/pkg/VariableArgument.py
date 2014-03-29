@@ -1,14 +1,15 @@
 from .utils import escapeQuotes
+from .ArgumentValue import ArgumentValue
 
 def VariableArgument(key, context):
+    """Template context variable as a dictionary.
+    """
     value = context[key]
+
+    # Ensure only a single pair of wrapping quotes.
     key = escapeQuotes(key)
-    try:
-        # Ensure only a single pair of wrapping quotes.
-        value = escapeQuotes(value)
-    except AttributeError:
-        # Value is not a string, so do nothing.
-        pass
+    value = escapeQuotes(value)
+
     return {
-        key: value
+        key: ArgumentValue(value)
     }

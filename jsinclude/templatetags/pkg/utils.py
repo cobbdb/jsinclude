@@ -13,4 +13,8 @@ def escapeQuotes(string):
     """Escape single quotes since values will be wrapped
     in single quotes in the wrap template.
     """
-    return string.replace("'", "\\'")
+    try:
+        return string.replace("'", "\\'")
+    except AttributeError:
+        # Not a string so return unaltered.
+        return string
