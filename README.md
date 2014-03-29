@@ -25,11 +25,45 @@ Syntax:
 
 -----------
 
-## $jsi
+## Django-tag API
+JSInclude accepts three types of tag arguments.
+
+#### <template variable>
+Any context variable can be directly provided as a tag argument.
+JSInclude will preserve the variable's name in the JavaScript $jsi object.
+
+    # context['color'] == 'red'
+    {% jsinclude shape.js color %}
+
+#### name=value
+Static values that do not contain spaces can be set as a simple
+key=value pair.
+
+    {% jsinclude shape.js type=square %}
+
+#### "name=long value"
+Static values that contain spaces must be wrapped in quotes. Django 1.3
+does not support arbitrary arguments to template tags, so the entire
+key=value pair must be wrapped in quotes.
+
+    {% jsinclude shape.js "label=my red square" %}
+
+## JavaScript API
+JSInclude exposes a single JavaScript object that contains all
+tag arguments. This object is scoped only to the included script,
+so it will not remain in scope after the script has executed and
+does not alter global namespace at any time. This scope containment
+means that setting variable values in global scope will require
+explicitly calling into the ```window``` object.
+
+    window.myglobal = 1234; // Works as expected.
+    myotherglobal = 1234; // Scoped only to the included script.
+
+#### $jsi
 JSInclude exposes the ``$jsi`` object scoped only to the included
 template.
 
-## $jsi.&lt;name&gt;
+#### $jsi.&lt;name&gt;
 The ``$jsi`` object contains any Django template variables preserving
 original naming. Static data can be loaded into the ``$jsi`` object by
 the ``name=value`` or ``"name=long value"`` tag argument conventions.
@@ -41,8 +75,8 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
     # settings.py
     JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
     JSINCLUDE_WRAP_PATH = 'optional/path/to/custom.template'
-    # Built-in DEBUG will enable/disable minification.
-    DEBUG = True
+    # Built-in TEMPLATE_DEBUG will enable/disable minification.
+    TEMPLATE_DEBUG = True
 
 ### Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
