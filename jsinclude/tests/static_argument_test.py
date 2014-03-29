@@ -4,16 +4,36 @@ from pytest import raises
 
 class TestStaticArgument:
     def test_no_equal(self):
-        key = 'noequals'
         with raises(JSIError):
-            arg = StaticArgument(key)
+            arg = StaticArgument('noequals')
 
-    def test_good_key(self):
-        key = 'someN"ame=someD\'ata'
-        arg = StaticArgument(key)
-        assert arg['someN"ame'] == "'someD\\'ata'"
-
-    def test_long_value(self):
+    def test_quote_effects(self):
         key = '"someN\'ame=so"meLon\g Data"'
         arg = StaticArgument(key)
         assert arg["someN\\'ame"] == "'so\"meLon\g Data'"
+
+    def test_short_value(self):
+        arg = StaticArgument('short=value')
+        assert arg['short'] == "'value'"
+
+    def test_long_value(self):
+        arg = StaticArgument('"some=long value"')
+        assert arg['some'] == "'long value'"
+
+    def test_number_value(self):
+        arg = StaticArgument('num=123')
+        assert arg['num'] == '123'
+
+    def test_boolean_value(self):
+        arg = StaticArgument('bool=true')
+        assert arg['bool'] == 'true'
+
+        arg = StaticArgument('bool=false')
+        assert arg['bool'] == 'false'
+
+    def test_python_boolean_value(self):
+        arg = StaticArgument('bool=True')
+        assert arg['bool'] == "'True'"
+
+        arg = StaticArgument('bool=False')
+        assert arg['bool'] == "'False'"
