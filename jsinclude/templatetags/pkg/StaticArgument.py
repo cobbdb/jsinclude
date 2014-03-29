@@ -18,7 +18,7 @@ def StaticArgument(pair):
         })
     except:
         raise JSIError('Unknown error occured while parsing static argument.', {
-            'pair', pair
+            'pair': pair
         })
 
     return {
