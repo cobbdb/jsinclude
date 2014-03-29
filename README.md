@@ -28,7 +28,7 @@ Syntax:
 ## Django-tag API
 JSInclude accepts three types of tag arguments.
 
-#### <template variable>
+#### &lt;template variable&gt;
 Any context variable can be directly provided as a tag argument.
 JSInclude will preserve the variable's name in the JavaScript $jsi object.
 
@@ -68,9 +68,7 @@ The ``$jsi`` object contains any Django template variables preserving
 original naming. Static data can be loaded into the ``$jsi`` object by
 the ``name=value`` or ``"name=long value"`` tag argument conventions.
 
------------
-
-### Configuration:
+## Configuration:
 
     # settings.py
     JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
@@ -78,7 +76,7 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
     # Built-in TEMPLATE_DEBUG will enable/disable minification.
     TEMPLATE_DEBUG = True
 
-### Dependencies:
+## Dependencies:
 * [rjsmin](http://opensource.perlig.de/rjsmin/doc-1.0/index.html)
 
 ------------------------
