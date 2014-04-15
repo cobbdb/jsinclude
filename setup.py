@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "jsinclude",
-    version = "1.2.0",
+    version = "1.2.1",
     packages = find_packages(),
     author = "Dan Cobb, Derek Anderson",
     author_email = "cobbdb@gmail.com, dmanderson@live.com",
