@@ -1,4 +1,4 @@
-JSInclude [![Build Status](https://travis-ci.org/cobbdb/jsinclude.png?branch=master)](https://travis-ci.org/cobbdb/jsinclude) [![PyPI version](https://badge.fury.io/py/jsinclude.png)](http://badge.fury.io/py/jsinclude)
+JSInclude [![Build Status](https://travis-ci.org/cobbdb/jsinclude.png?branch=master)](https://travis-ci.org/cobbdb/jsinclude) [![Coverage Status](https://coveralls.io/repos/cobbdb/jsinclude/badge.png)](https://coveralls.io/r/cobbdb/jsinclude) [![PyPI version](https://badge.fury.io/py/jsinclude.png)](http://badge.fury.io/py/jsinclude)
 =========
 
 ### A Django 1.3+ tag to keep JavaScript out of your templates.
