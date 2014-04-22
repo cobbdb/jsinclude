@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>JSInclude by cobbdb</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>JSInclude</h1>
+        <p>A Django 1.3+ template tag to keep JavaScript out of your templates.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/cobbdb/jsinclude" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/cobbdb/jsinclude/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/cobbdb/jsinclude/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <pre><code>$ pip install jsinclude
+</code></pre>
+
+<p>Example of use:</p>
+
+<blockquote>
+<div class="highlight highlight-HTML"><pre><span class="c">&lt;!-- template.html --&gt;</span>
+{% load jsinclude %}
+{% with 31 as age %}
+    {% jsinclude widgets/profile.js "name=Jane Doe" age gender=female %}
+{% endwith %}
+</pre></div>
+
+<div class="highlight highlight-JavaScript"><pre><span class="c1">// profile.js</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'My name is '</span> <span class="o">+</span> <span class="nx">$jsi</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"I'm a "</span> <span class="o">+</span> <span class="nx">$jsi</span><span class="p">.</span><span class="nx">age</span> <span class="o">+</span> <span class="s1">' year old '</span> <span class="o">+</span> <span class="nx">$jsi</span><span class="p">.</span><span class="nx">gender</span><span class="p">);</span>
+</pre></div>
+</blockquote>
+
+<p>Syntax:</p>
+
+<pre><code>{% jsinclude &lt;path_to_script&gt; [{arg}] %}
+</code></pre>
+
+<hr><h2>
+<a name="---" class="anchor" href="#---"><span class="octicon octicon-link"></span></a><a href="https://travis-ci.org/cobbdb/jsinclude"><img src="https://travis-ci.org/cobbdb/jsinclude.png?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/cobbdb/jsinclude"><img src="https://coveralls.io/repos/cobbdb/jsinclude/badge.png" alt="Coverage Status"></a> <a href="http://badge.fury.io/py/jsinclude"><img src="https://badge.fury.io/py/jsinclude.png" alt="PyPI version"></a> <a href="https://pypi.python.org/pypi/jsinclude"><img src="https://pypip.in/d/jsinclude/badge.png" alt="Download Count"></a>
+</h2>
+
+<h2>
+<a name="django-tag-api" class="anchor" href="#django-tag-api"><span class="octicon octicon-link"></span></a>Django-tag API</h2>
+
+<p>JSInclude accepts three types of tag arguments.</p>
+
+<h4>
+<a name="template-variable" class="anchor" href="#template-variable"><span class="octicon octicon-link"></span></a>&lt;template variable&gt;</h4>
+
+<p>Any context variable can be directly provided as a tag argument.
+JSInclude will preserve the variable's name in the JavaScript $jsi object.</p>
+
+<pre><code># context['color'] == 'red'
+{% jsinclude shape.js color %}
+</code></pre>
+
+<h4>
+<a name="namevalue" class="anchor" href="#namevalue"><span class="octicon octicon-link"></span></a>name=value</h4>
+
+<p>Static values that do not contain spaces can be set as a simple
+key=value pair.</p>
+
+<pre><code>{% jsinclude shape.js type=square %}
+</code></pre>
+
+<h4>
+<a name="namelong-value" class="anchor" href="#namelong-value"><span class="octicon octicon-link"></span></a>"name=long value"</h4>
+
+<p>Static values that contain spaces must be wrapped in quotes. Django 1.3
+does not support arbitrary arguments in template tags, so the entire
+key=value pair must be wrapped in quotes.</p>
+
+<pre><code>{% jsinclude shape.js "label=my red square" %}
+</code></pre>
+
+<h2>
+<a name="javascript-api" class="anchor" href="#javascript-api"><span class="octicon octicon-link"></span></a>JavaScript API</h2>
+
+<p>JSInclude exposes a single JavaScript object that contains all
+tag arguments. This object is scoped only to the included script,
+so it will not remain in scope after the script has executed and
+does not alter global namespace at any time. This scope containment
+means that setting variable values in global scope will require
+explicitly calling into the <code>window</code> object.</p>
+
+<pre><code>window.myglobal = 1234; // Works as expected.
+myotherglobal = 1234; // Scoped only to the included script.
+</code></pre>
+
+<h4>
+<a name="jsi" class="anchor" href="#jsi"><span class="octicon octicon-link"></span></a>$jsi</h4>
+
+<p>JSInclude exposes the <code>$jsi</code> object scoped only to the included
+template.</p>
+
+<h4>
+<a name="jsiname" class="anchor" href="#jsiname"><span class="octicon octicon-link"></span></a>$jsi.&lt;name&gt;</h4>
+
+<p>The <code>$jsi</code> object contains any Django template variables preserving
+original naming. Static data can be loaded into the <code>$jsi</code> object by
+the <code>name=value</code> or <code>"name=long value"</code> tag argument conventions.</p>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration:</h2>
+
+<pre><code># settings.py
+JSINCLUDE_STATIC_PATH = 'required/path/to/static/files'
+JSINCLUDE_WRAP_PATH = 'optional/path/to/custom.template'
+# Built-in TEMPLATE_DEBUG will enable/disable minification.
+TEMPLATE_DEBUG = True
+</code></pre>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies:</h2>
+
+<ul>
+<li><a href="http://opensource.perlig.de/rjsmin/doc-1.0/index.html">rjsmin</a></li>
+</ul><hr><ul>
+<li>License: MIT</li>
+<li>Dan Cobb <a href="mailto:cobbdb@gmail.com">cobbdb@gmail.com</a>
+</li>
+<li>Derek Anderson <a href="mailto:dmanderson@live.com">dmanderson@live.com</a>
+</li>
+</ul><hr><h2>
+<a name="change-log" class="anchor" href="#change-log"><span class="octicon octicon-link"></span></a>Change Log</h2>
+
+<h4>
+<a name="120" class="anchor" href="#120"><span class="octicon octicon-link"></span></a>1.2.0</h4>
+
+<ul>
+<li>Tag errors fail silently now. Error messages are returned describing what went wrong - formatted as an html comment. Find errors by searching the page's source for 'JSInclude Error'.</li>
+<li>JavaScript Number and Boolean types are now supported. Tag arguments like <code>branch=true</code> will now appear in <code>$jsi.branch</code> as a Boolean instead of a String. Note that Python's <code>True</code> and <code>False</code> will appear in the <code>$jsi</code> object as strings because JavaScript uses lower-case Boolean values.</li>
+</ul>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/cobbdb">cobbdb</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-50240363-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
