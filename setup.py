@@ -1,11 +1,10 @@
 from setuptools import setup, find_packages
-
 setup(
     name = "jsinclude",
-    version = "1.2.1",
+    version = "1.2.2",
     packages = find_packages(),
-    author = "Dan Cobb, Derek Anderson",
-    author_email = "cobbdb@gmail.com, dmanderson@live.com",
+    author = "Dan Cobb",
+    author_email = "cobbdb@gmail.com",
     description = "A Django 1.3+ tag to keep JavaScript out of your templates.",
     license = 'MIT',
     url = "https://github.com/cobbdb/jsinclude",
