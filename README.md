@@ -83,13 +83,3 @@ the ``name=value`` or ``"name=long value"`` tag argument conventions.
 
 * License: MIT
 * Dan Cobb <cobbdb@gmail.com>
-* Derek Anderson <dmanderson@live.com>
-
-------------------------
-
-## Change Log
-
-#### 1.2.0
-
-* Tag errors fail silently now. Error messages are returned describing what went wrong - formatted as an html comment. Find errors by searching the page's source for 'JSInclude Error'.
-* JavaScript Number and Boolean types are now supported. Tag arguments like ```branch=true``` will now appear in ```$jsi.branch``` as a Boolean instead of a String. Note that Python's ```True``` and ```False``` will appear in the ```$jsi``` object as strings because JavaScript uses lower-case Boolean values.
