@@ -8,10 +8,17 @@ A Django 1.3+ tag to keep JavaScript out of your templates.
 
     $ pip install jsinclude
 
-Example of use: >
-``HTML <!-- template.html --> {% load jsinclude %} {% with 31 as age %}     {% jsinclude widgets/profile.js "name=Jane Doe" age gender=female %} {% endwith %}``
+Example of use:
 
-.. code:: JavaScript
+::
+
+    <!-- template.html -->
+    {% load jsinclude %}
+    {% with 31 as age %}
+        {% jsinclude widgets/profile.js "name=Jane Doe" age gender=female %}
+    {% endwith %}
+
+::
 
     // profile.js
     console.log('My name is ' + $jsi.name);
@@ -34,8 +41,8 @@ JSInclude accepts three types of tag arguments.
 ^^^^^^^^^^^^^^^^^^^
 
 Any context variable can be directly provided as a tag argument.
-JSInclude will preserve the variable’s name in the JavaScript $jsi
-object.
+JSInclude will preserve the variable’s name in the JavaScript
+``$jsi`` object.
 
 ::
 
@@ -69,25 +76,28 @@ JavaScript API
 JSInclude exposes a single JavaScript object that contains all tag
 arguments. This object is scoped only to the included script, so it will
 not remain in scope after the script has executed and does not alter
-global namespace at any time. This scope containment means that setting
-variable values in global scope will require explicitly calling into the
-``window`` object.
+global namespace at any time.
 
 ::
 
     window.myglobal = 1234; // Works as expected.
-    myotherglobal = 1234; // Scoped only to the included script.
+    var myotherglobal = 1234; // Scoped only to the jsincluded script.
 
-:math:`jsi JSInclude exposes the ```\ jsi\`\` object scoped only to the included
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$jsi
+^^^^
 
+JSInclude exposes the ``$jsi`` object scoped only to the included
 template.
 
-:math:`jsi.&lt;name&gt; The ```\ jsi\ ``object contains any Django template variables preserving original naming. Static data can be loaded into the``\ $jsi\ ``object by the``\ name=value\ ``or``\ “name=long value”\`\` tag argument conventions.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$jsi.<name>
+^^^^^^^^^^^
 
-Configuration:
---------------
+The ``$jsi`` object contains any Django template variables preserving
+original naming. Static data can be loaded into the ``$jsi`` object by
+the ``name=value`` or ``"name=long value"`` tag argument conventions.
+
+Configuration
+-------------
 
 ::
 
@@ -97,8 +107,8 @@ Configuration:
     # Built-in TEMPLATE_DEBUG will enable/disable minification.
     TEMPLATE_DEBUG = True
 
-Dependencies:
--------------
+Dependencies
+------------
 
 -  `rjsmin`_
 
@@ -106,24 +116,6 @@ Dependencies:
 
 -  License: MIT
 -  Dan Cobb cobbdb@gmail.com
--  Derek Anderson dmanderson@live.com
-
---------------
-
-Change Log
-----------
-
-1.2.0
-^^^^^
-
--  Tag errors fail silently now. Error messages are returned describing
-   what went wrong - formatted as an html comment. Find errors by
-   searching the page’s source for ‘JSInclude Error’.
--  JavaScript Number and Boolean types are now supported. Tag arguments
-   like ``branch=true`` will now appear in ``$jsi.branch`` as a Boolean
-   instead of a String. Note that Python’s ``True`` and ``False`` will
-   appear in the ``$jsi`` object as strings because JavaScript uses
-   lower-case Boolean values.
 
 .. _rjsmin: http://opensource.perlig.de/rjsmin/doc-1.0/index.html
 
