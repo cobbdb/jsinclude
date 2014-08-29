@@ -10,5 +10,4 @@ env:
     - TOXENV=py27-1.4
     - TOXENV=py33-1.5
     - TOXENV=py33-1.6
-    - TOXENV=py33-latest
 after_success: coveralls
