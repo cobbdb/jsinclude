@@ -121,8 +121,8 @@ Dependencies
 
 .. |Build Status| image:: https://travis-ci.org/cobbdb/jsinclude.png?branch=master
    :target: https://travis-ci.org/cobbdb/jsinclude
-.. |Coverage Status| image:: https://coveralls.io/repos/cobbdb/jsinclude/badge.png
-   :target: https://coveralls.io/r/cobbdb/jsinclude
+.. |Coverage Status| image:: https://coveralls.io/repos/cobbdb/jsinclude/badge.png?branch=master
+   :target: https://coveralls.io/r/cobbdb/jsinclude?branch=master
 .. |PyPI version| image:: https://badge.fury.io/py/jsinclude.png
    :target: http://badge.fury.io/py/jsinclude
 .. |Download Count| image:: https://pypip.in/d/jsinclude/badge.png
