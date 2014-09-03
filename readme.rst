@@ -35,7 +35,21 @@ Syntax:
 Django-tag API
 --------------
 
-JSInclude accepts three types of tag arguments.
+The JSInclude tag has two sections. First argument is the script
+path.
+
+::
+
+    # Path can be a string..
+    {% jsinclude literal/path/to/script.js %}
+    # ..or a context variable.
+    # context['mypath'] == "my/script/path.js"
+    {% jsinclude mypath %}
+
+The second argument section is where you can pass in your template
+data into the JavaScript file. There are three variable format
+options, and there is no limit to the number of varialbes you can
+pass in.
 
 <template variable>
 ^^^^^^^^^^^^^^^^^^^
