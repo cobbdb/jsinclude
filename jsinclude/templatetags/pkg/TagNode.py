@@ -1,7 +1,7 @@
 from django.template import Node, loader, Context
 from django.conf import settings
 from rjsmin import jsmin
-from .utils import stripQuotes
+from .utils import stripQuotes, fin
 from .ArgumentCollection import ArgumentCollection
 from .PathArgument import PathArgument
 from .JSIError import JSIError
@@ -22,7 +22,7 @@ class TagNode(Node):
             pathArg = PathArgument(context, self.path)
             fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, pathArg)
             wrapContext = Context({
-                'script': open(fullPath, 'rb').read(),
+                'script': fin(fullPath),
                 'tagArguments': ArgumentCollection(context, self.arguments)
             }, autoescape=False)
         except JSIError as err:

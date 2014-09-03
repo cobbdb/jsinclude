@@ -3,9 +3,8 @@ from jsinclude.templatetags.pkg.TagNode import TagNode
 from django.conf import settings
 
 class TestTagNodeRender:
-    # First val is $jsi props, second
-    # is script string.
-    tpl = '<script>(function () {var $jsi = {%s};%s}());</script>'
+    # First val is $jsi props, second is script string.
+    tpl = '<script>(function(){var $jsi={%s};%s}());</script>'
     context = {
         'testvar1': 'testval1',
         'testvar2': 'testval2'
@@ -27,14 +26,32 @@ class TestTagNodeRender:
         except IOError as err:
             assert err.filename == 'static/test/path/bad/path'
 
-    def test_good_path(self):
+    @patch('jsinclude.templatetags.pkg.TagNode.fin')
+    def test_render_no_args(self, mockOpen):
+        mockOpen.return_value = 'testscript'
         node = TagNode('testpath')
-        with patch('__builtin__.open') as mockOpen:
-            file = Mock()
-            file.read.return_value = 'testscript'
-            mockOpen.return_value = file
-            res = node.render(self.context)
-            assert res == self.tpl % (
-                '',
-                'testscript'
-            )
+        res = node.render(self.context)
+        assert res == self.tpl % (
+            '',
+            'testscript'
+        )
+        assert res != self.tpl % (
+            '',
+            'testscript123'
+        )
+
+    @patch('jsinclude.templatetags.pkg.TagNode.fin')
+    def test_render_with_args(self, mockOpen):
+        mockOpen.return_value = 'testscript'
+        node = TagNode('testpath', [
+            'testvar2'
+        ])
+        res = node.render(self.context)
+        assert res == self.tpl % (
+            "'testvar2':'testval2',",
+            'testscript'
+        )
+        assert res != self.tpl % (
+            "'testvar2':'testval1',",
+            'testscript'
+        )
