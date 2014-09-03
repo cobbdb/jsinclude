@@ -1,7 +1,7 @@
 from .VariableArgument import VariableArgument
 from .StaticArgument import StaticArgument
 
-def ArgumentCollection(arguments, context):
+def ArgumentCollection(context, arguments):
     """Dictionary of tag arguments by name: value.
     """
     collection = {}

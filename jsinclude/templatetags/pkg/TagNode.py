@@ -23,7 +23,7 @@ class TagNode(Node):
             fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, pathArg)
             wrapContext = Context({
                 'script': open(fullPath, 'rb').read(),
-                'tagArguments': ArgumentCollection(self.arguments, context)
+                'tagArguments': ArgumentCollection(context, self.arguments)
             }, autoescape=False)
         except JSIError as err:
             # Something went wrong, bail out and return the error.
