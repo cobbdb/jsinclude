@@ -18,3 +18,8 @@ def escapeQuotes(string):
     except AttributeError:
         # Not a string so return unaltered.
         return string
+
+def fin(path):
+    """Opens file at given path and returns string value.
+    """
+    return open(path, 'rb').read()

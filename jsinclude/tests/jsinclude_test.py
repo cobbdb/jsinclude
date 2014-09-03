@@ -16,25 +16,25 @@ class TestTemplateTag:
         with raises(TemplateSyntaxError):
             jsinclude(self.parser, self.token)
 
-    def test_no_args(self):
+    @patch('jsinclude.templatetags.jsinclude.TagNode')
+    def test_no_args(self, mockNode):
         self.token.split_contents.return_value = [
             'jsinclude',
             'test/path'
         ]
-        with patch('jsinclude.templatetags.jsinclude.TagNode') as MockNode:
-            jsinclude(self.parser, self.token)
-            MockNode.assert_called_with('test/path', [])
+        jsinclude(self.parser, self.token)
+        mockNode.assert_called_with('test/path', [])
 
-    def test_with_args(self):
+    @patch('jsinclude.templatetags.jsinclude.TagNode')
+    def test_with_args(self, mockNode):
         self.token.split_contents.return_value = [
             'jsinclude',
             'test/path',
             'foo',
             'bar'
         ]
-        with patch('jsinclude.templatetags.jsinclude.TagNode') as MockNode:
-            jsinclude(self.parser, self.token)
-            MockNode.assert_called_with('test/path', [
-                'foo',
-                'bar'
-            ])
+        jsinclude(self.parser, self.token)
+        mockNode.assert_called_with('test/path', [
+            'foo',
+            'bar'
+        ])
