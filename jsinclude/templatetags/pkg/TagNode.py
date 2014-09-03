@@ -3,6 +3,7 @@ from django.conf import settings
 from rjsmin import jsmin
 from .utils import stripQuotes
 from .ArgumentCollection import ArgumentCollection
+from .PathArgument import PathArgument
 from .JSIError import JSIError
 import os
 
@@ -18,7 +19,8 @@ class TagNode(Node):
     def render(self, context):
         try:
             # Create the wrap context.
-            fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, self.path)
+            pathArg = PathArgument(context, self.path)
+            fullPath = os.path.join(settings.JSINCLUDE_STATIC_PATH, pathArg)
             wrapContext = Context({
                 'script': open(fullPath, 'rb').read(),
                 'tagArguments': ArgumentCollection(self.arguments, context)
