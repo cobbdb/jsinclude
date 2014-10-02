@@ -48,10 +48,10 @@ class TestTagNodeRender:
         ])
         res = node.render(self.context)
         assert res == self.tpl % (
-            "'testvar2':'testval2',",
+            "'testvar2':'testval2'",
             'testscript'
         )
         assert res != self.tpl % (
-            "'testvar2':'testval1',",
+            "'testvar2':'testval1'",
             'testscript'
         )
